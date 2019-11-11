@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from wiki.models import Page
-from django.views import DetailView, ListView
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 # Create your views here.
 
 
@@ -12,19 +13,23 @@ class PageList(ListView):
       3. Replace pass below with the code to render a template named `list.html`.
     """
     model = Page
+    context_object_name = "pages"
+    template_name = "list.html"
 
-    def get(self, request, username, slug):
-        """ Returns a list of wiki pages. """
-        pass
+    # def get(self, request):
+    #   """ Returns a list of wiki pages. """
+    #   pages = Page.objects.all()
+    #   return render(request, 'list.html', {
+    #     "pages" : pages
+    #   })
 
 
 class PageDetailView(DetailView):
     """
     CHALLENGES:
       1. On GET, render a template named `page.html`.
-      2. Replace this docstring with a description of what thos accomplishes.
-
-    STRETCH CHALLENGES:
+      2. Replace this docstring with a description of what thos accomplishes."""
+    """STRETCH CHALLENGES:
       1. Import the PageForm class from forms.py.
           - This ModelForm enables editing of an existing Page object in the database.
       2. On GET, render an edit form below the page details.
@@ -36,10 +41,16 @@ class PageDetailView(DetailView):
            - Message Content: REPLACE_WITH_PAGE_TITLE has been successfully updated.
     """
     model = Page
+    context_object_name = "page"
+    template_name = "page.html"
 
-    def get(self, request, slug):
-        """ Returns a specific of wiki page by slug. """
-        pass
+    #def get(self, request, slug):
+    """ Returns a specific of wiki page by slug. """
+      
+      # page = Page.objects.get(slug)
+      # return render(request, 'page.html', {
+      #   "page" : page
+      # })
 
     def post(self, request, slug):
         pass
